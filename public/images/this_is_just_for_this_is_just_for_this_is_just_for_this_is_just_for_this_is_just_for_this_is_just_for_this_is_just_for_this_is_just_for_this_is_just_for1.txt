@@ -1,0 +1,7 @@
+done nav with login logout   => header layout
+done get with laravel pagination
+delete smoothly
+ading image 
+implementing multilevel login user,admin system
+
+
