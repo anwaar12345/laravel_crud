@@ -5,8 +5,10 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 //use Illuminate\Support\Facades\Hash;
-
+//use App\Http\Controllers\API\BaseController as BaseController;
+use App\Post;
 use Auth;
+use DB;
 
 class LoginController extends Controller
 {
@@ -61,14 +63,21 @@ class LoginController extends Controller
         } 
     }
 
-    // public function print()
-    // {
-    //     # code...
-    //     echo "hello";
-    // }
+    public function posts()
+    {
+        // die("hwew");
+        # code...
+        // $records = DB::table('posts')->get();
+        // dd($records);
+        $posts = Post::all();
+        // die("hewww");
+        // $posts = Post::all();
+        // dd($posts);
+        return $this->sendResponse($posts, 'Posts retrieved successfully.');
+    }
 
 
-    //
+    
 
 
 }

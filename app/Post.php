@@ -3,29 +3,20 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Passport\HasApiTokens;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
+     use SoftDeletes;
+
      protected $fillable = ['post', 'uid', 'createdby', 'images'];
 
 
      const isadmin = [
          'isadmin'
      ];
-    // get ($paginated)(Auth::id();)
-    // insert($data)
-    // (edit($id))
 
-    // public static function update1($data)
-    // {
-
-        
-        
-    //      print_r($data);
-    //       exit();
-    // }
+     protected $dates = ['deleted_at'];
 
 
 

@@ -15,7 +15,11 @@
 			</div>
 			<div class="pull-right" style="margin-top:10px; margin-bottom:10px;">
 				<a class="btn btn-success" href="{{ route('products.create') }}"> Create New Post </a>
+				
+				<a class="btn btn-success" href="{{ url('products.trash') }}"> Trash </a>
+		
 			</div>
+			
 		</div>
 	</div>
 
@@ -60,8 +64,11 @@
 						@csrf
 						@method('DELETE')
 						<button type="submit" class="btn btn-danger">Delete</button>
-					</form>
 
+						
+					</form>
+					
+					
 				</td>	
 				@php 
 continue;

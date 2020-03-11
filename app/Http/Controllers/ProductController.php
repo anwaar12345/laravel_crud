@@ -25,7 +25,7 @@ class ProductController extends Controller
             $products = Post::latest()->where('uid',Auth::id())->paginate(5);
 
         }elseif(Auth::user()->isadmin == 1){
-            $products = Post::latest()->paginate(5);
+            $products = Post::latest()->where('deleted_at', NULL)->paginate(5);
 
         }
         
@@ -33,6 +33,26 @@ class ProductController extends Controller
         
     }
 
+    public function softdelet()
+    {
+
+        // dd(Auth::id());
+        if(Auth::user()->isadmin === 2){
+            $products = Post::onlyTrashed()->where('uid',Auth::id())->paginate(5);
+
+        }elseif(Auth::user()->isadmin == 1){
+            $products = Post::onlyTrashed()->paginate(5);
+
+        }
+        
+        return view('products.trash', compact('products'));
+        
+    }
+
+
+
+
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -197,5 +217,14 @@ Post::create($data);
 
         return redirect()->route('products.index')
                             ->with('success', 'post Deleted Successfully!');
+    }
+
+    public function softdelete(Post $product)
+    {
+        //dd($product);   
+        $product->delete();
+
+        return redirect()->route('products.index')
+                            ->with('success', 'post Soft Deleted Successfully!');
     }
 }

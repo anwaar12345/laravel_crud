@@ -18,6 +18,7 @@ Route::get('/', function () {
 Route::resource('products', 'ProductController')->middleware('auth');
 
 Auth::routes();
-
+Route::get('products.trash','ProductController@softdelet');
+Route::post('products.restore' ,'ProductController@restore');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/dashboard', 'AdminController@index')->name('admin');
