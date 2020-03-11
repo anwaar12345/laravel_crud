@@ -23,4 +23,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('login1','API\LoginController@login');
 Route::get('posts','API\LoginController@posts');
+Route::Post('ceateposts','API\LoginController@ceateposts');
+
 

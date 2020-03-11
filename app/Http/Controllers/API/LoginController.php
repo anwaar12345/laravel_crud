@@ -46,6 +46,7 @@ class LoginController extends Controller
         return response()->json($response, $code);
     }
 
+//login api response function
 
     public function login(Request $request)
     {
@@ -63,6 +64,8 @@ class LoginController extends Controller
         } 
     }
 
+//Post List Api Response function
+
     public function posts()
     {
         // die("hwew");
@@ -76,7 +79,15 @@ class LoginController extends Controller
         return $this->sendResponse($posts, 'Posts retrieved successfully.');
     }
 
+//Create Post With JWT TOKEN API Response Function
 
+public function ceateposts()
+{
+
+echo "Create Post";
+
+
+}
     
 
 
