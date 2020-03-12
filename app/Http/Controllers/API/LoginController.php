@@ -2,92 +2,63 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
+use JWTAuth;
+use App\User;
 use Illuminate\Http\Request;
-//use Illuminate\Support\Facades\Hash;
-//use App\Http\Controllers\API\BaseController as BaseController;
-use App\Post;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use App\Http\Requests\RegistrationFormRequest;
+use App\Http\Controllers\Controller;
 use Auth;
-use DB;
+
 
 class LoginController extends Controller
 {
-    public function sendResponse($result, $message)
-    {
-    	$response = [
-            'success' => true,
-            'data'    => $result,
-            'message' => $message,
-        ];
-
-
-        return response()->json($response, 200);
-    }
-
-
-    /**
-     * return error response.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function sendError($error, $errorMessages = [], $code = 404)
-    {
-    	$response = [
-            'success' => false,
-            'message' => $error,
-        ];
-
-
-        if(!empty($errorMessages)){
-            $response['data'] = $errorMessages;
-        }
-
-
-        return response()->json($response, $code);
-    }
+    
 
 //login api response function
 
-    public function login(Request $request)
-    {
+    // public function login(Request $request)
+    // {
         
-        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
-            $user = Auth::user(); 
-            $success['token'] =  $user->createToken('MyApp')->accessToken; 
-            $success['name'] =  $user->name;
-            $success['password'] = $user->password;
+    //     if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
+    //         $user = Auth::user(); 
+    //         $success['token'] =  $user->createToken('MyApp')->accessToken; 
+    //         $success['name'] =  $user->name;
+    //         $success['password'] = $user->password;
             
-            return $this->sendResponse($success, 'User login successfully.');
-        } 
-        else{ 
-            return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
-        } 
-    }
-
-//Post List Api Response function
-
-    public function posts()
-    {
-        // die("hwew");
-        # code...
-        // $records = DB::table('posts')->get();
-        // dd($records);
-        $posts = Post::all();
-        // die("hewww");
-        // $posts = Post::all();
-        // dd($posts);
-        return $this->sendResponse($posts, 'Posts retrieved successfully.');
-    }
+    //         return $this->sendResponse($success, 'User login successfully.');
+    //     } 
+    //     else{ 
+    //         return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
+    // //     } 
+    // }
 
 //Create Post With JWT TOKEN API Response Function
-
-public function ceateposts()
+public function login(Request $request)
 {
+   
+    $token = null;
 
-echo "Create Post";
+    if (!$token = JWTAuth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Invalid Email or Password',
+        ], 401);
+    }
 
-
+    return response()->json([
+        'success' => true,
+        'token' => $token,
+    ]);
 }
+
+// public function ceateposts()
+// {
+
+// echo "Create Post";
+
+
+// }
     
 
 

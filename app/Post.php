@@ -19,6 +19,15 @@ class Post extends Model
      protected $dates = ['deleted_at'];
 
 
+    /**
+     * @var string
+     */
+    protected $table = 'posts';
+
+    /**
+     * @var array
+     */
+    protected $guarded = [];
 
 }
 

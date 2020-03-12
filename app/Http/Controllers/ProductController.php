@@ -13,6 +13,8 @@ class ProductController extends Controller
         $this->middleware('auth');
     }
     
+    
+
     /**
      * Display a listing of the resource.
      *
@@ -194,6 +196,19 @@ Post::create($data);
         //dd($post);
        $post->update($data);
 
+    }else{
+        $data = [
+
+            'post' => $request->post, 
+            'uid' => $request->uid, 
+            'createdby' => $request->createdby,
+           
+      
+        ];
+
+               $post = Post::find($id);
+    //dd($post);
+   $post->update($data);  
     }
          
      //    Print_r($img);

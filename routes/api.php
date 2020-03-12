@@ -13,16 +13,23 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 
 // Route::post('login', '');
+//group middleware for restricting API
+
+Route::post('login1','API\LoginController@login');
+// Route::get('posts','API\PostController@index');
+
+Route::group(['middleware' => 'auth.jwt'], function () {
+    Route::get('posts','API\PostController@index');
+    Route::Post('ceateposts','API\LoginController@ceateposts');    
+});
 
 
-Route::get('login1','API\LoginController@login');
-Route::get('posts','API\LoginController@posts');
-Route::Post('ceateposts','API\LoginController@ceateposts');
+
 
 

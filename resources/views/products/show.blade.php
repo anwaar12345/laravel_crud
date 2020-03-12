@@ -33,7 +33,7 @@ post images:
 	<div class="row">
 	<div class="col-lg-12">
 	<div class="table-responsive">
-	<table class="table table-bordered">
+	<table class="table table-bordered" >
 
 	@foreach( json_decode($product->images,true)  as $img)
 						
