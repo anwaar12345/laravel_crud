@@ -44,9 +44,12 @@ continue;
 	
 						</tr>
 		
-		@endforeach
+	
+	@endforeach
+
 	</table>
 	{{ $products->links() }}
+	<a href="/products" class="btn btn-success">Back To Previous Page</a>
 </div>
 </body>
 </html>

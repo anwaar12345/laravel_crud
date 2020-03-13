@@ -39,6 +39,8 @@ public function login(Request $request)
    
     $token = null;
 
+    
+
     if (!$token = JWTAuth::attempt(['email' => $request->email, 'password' => $request->password])) {
         return response()->json([
             'success' => false,

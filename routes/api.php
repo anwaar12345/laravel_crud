@@ -21,12 +21,12 @@ use Illuminate\Http\Request;
 // Route::post('login', '');
 //group middleware for restricting API
 
-Route::post('login1','API\LoginController@login');
+Route::post('login1','API\LoginController@login')->middleware('requestloggs');
 // Route::get('posts','API\PostController@index');
 
-Route::group(['middleware' => 'auth.jwt'], function () {
+Route::group(['middleware' => 'auth.jwt','requestloggs'], function (){
     Route::get('posts','API\PostController@index');
-    Route::Post('ceateposts','API\LoginController@ceateposts');    
+   // Route::Post('ceateposts','API\LoginController@ceateposts');    
 });
 
 
