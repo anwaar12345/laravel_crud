@@ -1,4 +1,9 @@
-# To Use The App First Get Install Laravel 6 And then get The DataBase Imported and Then Navigate to folder laravel_crud And Run php artisan serve and to see Short Project Demo And API's Demo go to projecttdemo folder in repo 
+# To Use The App First Install The Laravel 6 And the get The DataBase Imported file is attached in folder shahblog.sql and Then Navigate to folder And Run php artisan serve
 
-1. Email is : tester@gmail.com
-2. Password for Admin : shahji4444 
+1. Email is : Tester@gmail.com
+2. password is : shahji4444
+
+# To Test Api you Need To Install Postman Just Pass url given Below: 
+1. http://127.0.0.1:8000/api/login1 (Post Method)
+ 
+2. http://127.0.0.1:8000/api/posts (get Method)
