@@ -21,7 +21,7 @@ class UrlGenerator implements UrlGeneratorContract
     /**
      * The route collection.
      *
-     * @var \Illuminate\Routing\RouteCollection
+     * @var \Illuminate\Routing\RouteCollectionInterface
      */
     protected $routes;
 
@@ -112,12 +112,12 @@ class UrlGenerator implements UrlGeneratorContract
     /**
      * Create a new URL Generator instance.
      *
-     * @param  \Illuminate\Routing\RouteCollection  $routes
+     * @param  \Illuminate\Routing\RouteCollectionInterface  $routes
      * @param  \Illuminate\Http\Request  $request
      * @param  string|null  $assetRoot
      * @return void
      */
-    public function __construct(RouteCollection $routes, Request $request, $assetRoot = null)
+    public function __construct(RouteCollectionInterface $routes, Request $request, $assetRoot = null)
     {
         $this->routes = $routes;
         $this->assetRoot = $assetRoot;
@@ -215,7 +215,7 @@ class UrlGenerator implements UrlGeneratorContract
      * Generate a secure, absolute URL to the given path.
      *
      * @param  string  $path
-     * @param  array   $parameters
+     * @param  array  $parameters
      * @return string
      */
     public function secure($path, $parameters = [])
@@ -315,10 +315,18 @@ class UrlGenerator implements UrlGeneratorContract
      * @param  \DateTimeInterface|\DateInterval|int|null  $expiration
      * @param  bool  $absolute
      * @return string
+     *
+     * @throws \InvalidArgumentException
      */
     public function signedRoute($name, $parameters = [], $expiration = null, $absolute = true)
     {
         $parameters = $this->formatParameters($parameters);
+
+        if (array_key_exists('signature', $parameters)) {
+            throw new InvalidArgumentException(
+                '"Signature" is a reserved parameter when generating signed routes. Please rename your route parameter.'
+            );
+        }
 
         if ($expiration) {
             $parameters = $parameters + ['expires' => $this->availableAt($expiration)];
@@ -397,7 +405,7 @@ class UrlGenerator implements UrlGeneratorContract
      * Get the URL to a named route.
      *
      * @param  string  $name
-     * @param  mixed   $parameters
+     * @param  mixed  $parameters
      * @param  bool  $absolute
      * @return string
      *
@@ -417,13 +425,19 @@ class UrlGenerator implements UrlGeneratorContract
      *
      * @param  \Illuminate\Routing\Route  $route
      * @param  mixed  $parameters
-     * @param  bool   $absolute
+     * @param  bool  $absolute
      * @return string
      *
      * @throws \Illuminate\Routing\Exceptions\UrlGenerationException
      */
     public function toRoute($route, $parameters, $absolute)
     {
+        $parameters = collect(Arr::wrap($parameters))->map(function ($value, $key) use ($route) {
+            return $value instanceof UrlRoutable && $route->bindingFieldFor($key)
+                    ? $value->{$route->bindingFieldFor($key)}
+                    : $value;
+        })->all();
+
         return $this->routeUrl()->to(
             $route, $this->formatParameters($parameters), $absolute
         );
@@ -433,8 +447,8 @@ class UrlGenerator implements UrlGeneratorContract
      * Get the URL to a controller action.
      *
      * @param  string|array  $action
-     * @param  mixed   $parameters
-     * @param  bool    $absolute
+     * @param  mixed  $parameters
+     * @param  bool  $absolute
      * @return string
      *
      * @throws \InvalidArgumentException
@@ -557,7 +571,7 @@ class UrlGenerator implements UrlGeneratorContract
      */
     public function isValidUrl($path)
     {
-        if (! preg_match('~^(#|//|https?://|mailto:|tel:)~', $path)) {
+        if (! preg_match('~^(#|//|https?://|(mailto|tel|sms):)~', $path)) {
             return filter_var($path, FILTER_VALIDATE_URL) !== false;
         }
 
@@ -691,10 +705,10 @@ class UrlGenerator implements UrlGeneratorContract
     /**
      * Set the route collection.
      *
-     * @param  \Illuminate\Routing\RouteCollection  $routes
+     * @param  \Illuminate\Routing\RouteCollectionInterface  $routes
      * @return $this
      */
-    public function setRoutes(RouteCollection $routes)
+    public function setRoutes(RouteCollectionInterface $routes)
     {
         $this->routes = $routes;
 
