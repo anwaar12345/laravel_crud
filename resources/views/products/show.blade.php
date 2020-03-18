@@ -1,16 +1,7 @@
 @extends('products.layout')
 
 @section('content')
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="pull-left">
-				<h3> your Clicked Post</h3>
-			</div>
-			<div class="pull-right">
-				<a class="btn btn-success" href="{{ route('products.index') }}"> Back to Posts </a>
-			</div>
-		</div>
-	</div>
+	
 
 	<div class="row">
 			<div class="col-lg-12">
@@ -37,12 +28,20 @@ post images:
 
 	@foreach( json_decode($product->images,true)  as $img)
 						
-						<img src="{{asset('images/')}}/{{$img}}" width="100px">
+						<img src="{{asset('images/')}}/{{$img}}" style="border: 1px solid green; margin-top: 30px; width: 400px;">
 						
 									@endforeach
 </table>
 
 	</div>
 	</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12">
+
+			<div class="pull-right">
+				<a class="btn btn-success" href="{{ route('products.index') }}"> Back to Posts </a>
+			</div>
+		</div>
 	</div>
 @endsection
