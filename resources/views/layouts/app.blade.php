@@ -27,9 +27,15 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
+            @if(Auth::user())  
                 <a class="navbar-brand" href="{{ url('/') }}">
-                  Laravel
+                {{Auth::user()->name}}'s Blog
                 </a>
+                @else
+                <a class="navbar-brand" href="{{ url('/') }}">
+                 ShahBlog
+                </a>
+                @endif
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>

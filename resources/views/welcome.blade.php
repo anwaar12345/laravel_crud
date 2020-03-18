@@ -69,6 +69,7 @@
                 <div class="top-right links">
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
+                        
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
@@ -84,11 +85,13 @@
                     Laravel Blog
                 </div>
                 <div style="color:red; font-size:30px; letter-spacing:1px; font-weight:bold;">
-                @if(!session()->exists('user'))
+                @if(Auth::user())
+                Author :
+                {{Auth::user()->name}}
+                @else
                 Maintained By Syed Anwar Ahmed Shah
-                
-                @endif
-                </div>
+                @endif           
+             </div>
 
             </div>
         </div>
