@@ -45,11 +45,8 @@ class Logscron extends Command
      
 
         /*
-
            Write your database logic we bellow:
-
            Item::create(['name'=>'hello new']);
-
         */
 
         // $requestlogg->query()->delete()->where('created_at', '<',Carbon::now()->subDays(3)); 
