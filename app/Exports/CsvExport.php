@@ -12,6 +12,7 @@ class CsvExport implements FromCollection
     */
     public function collection()
     {
-        return CsvData::all();
+
+        return CsvData::all('csv_filename', 'csv_header', 'csv_data');
     }
 }

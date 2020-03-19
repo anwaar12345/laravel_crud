@@ -19,7 +19,7 @@ Route::resource('products', 'ProductController')->middleware('auth');
 
 Auth::routes();
 Route::get('products.trash','ProductController@softdelet');
-Route::post('products.restore' ,'ProductController@restore');
+// Route::get('products.restore' ,'ProductController@restore');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/dashboard', 'AdminController@index')->name('admin');
 
@@ -29,13 +29,12 @@ Route::get('/dashboard', 'AdminController@index')->name('admin');
     
     Route::group(['middleware' => 'auth'], function (){ // two middleware auth.jwt for jwt token and requestloggs to save API loggs in DataBase
 
-        // Route::post('/csv', 'ImportController@getImport')->name('import');    
-        // Route::post('/import_parse', 'ImportController@parseImport')->name('import_parse');        
-        // Route::post('/import_process', 'ImportController@processImport')->name('import_process');
 
         Route::get('export', 'MyController@export')->name('export');
         Route::get('importExportView', 'MyController@importExportView');
         Route::post('import', 'MyController@import')->name('import');
+     
+       Route::get('/delete','MyController@destroy')->name('delete');
 
     });
 

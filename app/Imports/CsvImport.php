@@ -14,14 +14,11 @@ class CsvImport implements ToModel
     */
     public function model(array $row)
     {
-        $i = 0;
-
         return new CsvData([
-            //
-
-            'csv_filename' => $row[$i],
-            'csv_header' => $row[$i],
-            'csv_data' => $row[$i],
+            'csv_filename' => $row[0],
+            'csv_header' => $row[1],
+            'csv_data' => $row[2],
         ]);
+        
     }
 }

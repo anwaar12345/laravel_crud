@@ -6,7 +6,7 @@
    use App\Exports\CsvExport;
    use App\Imports\CsvImport;
    use Maatwebsite\Excel\Facades\Excel;
-     
+   use App\CsvData;     
    class MyController extends Controller
    {
        /**
@@ -14,7 +14,8 @@
        */
        public function importExportView()
        {
-          return view('products.import');
+        $csv = CsvData::get();
+          return view('products.import',compact('csv'));
        }
       
        /**
@@ -22,7 +23,7 @@
        */
        public function export() 
        {
-           return Excel::download(new CsvExport, 'CsvData.xlsx');
+           return Excel::download(new CsvExport, 'CsvData.csv');
        }
       
        /**
@@ -31,8 +32,21 @@
        public function import(Request $request) 
        {
         //    dd($request);
+    // print_r($request->file('file'));
+        // exit;
            Excel::import(new CsvImport,$request->file('file'));
               
-           return back();
+           return back()->with('success', 'Csv Data Uploaded Successfully!');
        }
+
+
+
+       public function destroy(CsvData $csvdata)
+       {
+           $csvdata->query()->delete();
+   
+           return back()->with('success', 'CSV Data Deleted Successfully!');
+       }
+   
+
 }
