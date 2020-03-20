@@ -33,9 +33,9 @@ Route::get('/dashboard', 'AdminController@index')->name('admin');
         Route::get('export', 'MyController@export')->name('export');
         Route::get('importExportView', 'MyController@importExportView');
         Route::post('import', 'MyController@import')->name('import');
-     
-       Route::get('/delete','MyController@destroy')->name('delete');
-
+        Route::get('/delete','MyController@destroy')->name('delete');
+        Route::get('stripe', 'MyPaymentController@view');
+        Route::post('stripe', 'MyPaymentController@stripepay')->name('stripe.post');
     });
 
 
