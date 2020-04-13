@@ -86,8 +86,12 @@
                 </div>
                 <div style="color:red; font-size:30px; letter-spacing:1px; font-weight:bold;">
                 @if(Auth::user())
+                @if(Auth::user()->isadmin==2)
                 Author :
-                {{Auth::user()->name}}
+                {{ucWords(Auth::user()->name)}}
+                @elseif(Auth::user()->isadmin==1)
+                Admin:  {{ucfirst(Auth::user()->name)}}
+                @endif
                 @else
                 Maintained By Syed Anwar Ahmed Shah
                 @endif           
