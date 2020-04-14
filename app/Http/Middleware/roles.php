@@ -52,6 +52,6 @@ class roles
                 if (Auth::user()->isadmin === 2) {
                     return redirect()->route('home');
                 }
-                    // return $next($request);
+                     return $next($request);
     }
 }

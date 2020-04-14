@@ -16,7 +16,7 @@
 			<div class="pull-right" style="margin-top:10px; margin-bottom:10px;">
 				<a class="btn btn-success" href="{{ route('products.create') }}"> Create New Post </a> &nbsp;&nbsp;   
 				<a href="{{ url('/importExportView') }}" class="btn btn-success">Upload CSV</a> &nbsp;
-				<a class="btn btn-success" href="{{ url('products.trash') }}"> Trash </a> 
+				<a class="btn btn-success" href="{{ route('trash') }}"> Trash </a> 
 				
 			</div>
 			<hr>

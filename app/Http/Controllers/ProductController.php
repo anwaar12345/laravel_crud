@@ -23,10 +23,10 @@ class ProductController extends Controller
     public function index()
     {
         //dd(Auth::id());
-        if(Auth::user()->isadmin === 2){
+        if(Auth::user()->role === 2){
             $products = Post::latest()->where('uid',Auth::id())->paginate(5);
 
-        }elseif(Auth::user()->isadmin == 1){
+        }elseif(Auth::user()->role == 1){
             $products = Post::latest()->where('deleted_at', NULL)->paginate(5);
 
         }
@@ -39,10 +39,10 @@ class ProductController extends Controller
     {
 
         // dd(Auth::id());
-        if(Auth::user()->isadmin === 2){
+        if(Auth::user()->role === 2){
             $products = Post::onlyTrashed()->where('uid',Auth::id())->paginate(5);
 
-        }elseif(Auth::user()->isadmin == 1){
+        }elseif(Auth::user()->role == 1){
             $products = Post::onlyTrashed()->paginate(5);
 
         }

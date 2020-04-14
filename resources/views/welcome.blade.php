@@ -86,10 +86,10 @@
                 </div>
                 <div style="color:red; font-size:30px; letter-spacing:1px; font-weight:bold;">
                 @if(Auth::user())
-                @if(Auth::user()->isadmin==2)
+                @if(Auth::user()->role==2)
                 Author :
                 {{ucWords(Auth::user()->name)}}
-                @elseif(Auth::user()->isadmin==1)
+                @elseif(Auth::user()->role==1)
                 Admin:  {{ucfirst(Auth::user()->name)}}
                 @endif
                 @else

@@ -77,9 +77,9 @@
                                 
                                 </div>
                                 
-                               @if(Auth::user()->isadmin === 2) 
+                               @if(Auth::user()->role === 2) 
                                <a href="/products">Add posts</a>
-                               @elseif(Auth::user()->isadmin === 1)
+                               @elseif(Auth::user()->role === 1)
                                <a href="/products">View All posts</a>
                                @endif
                             </li>
